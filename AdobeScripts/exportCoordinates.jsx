@@ -17,6 +17,8 @@ var originalRulerUnits = preferences.rulerUnits;
 preferences.rulerUnits = Units.PIXELS;  
   
 var docRef = activeDocument;  
+docRef.flipCanvas(Direction.VERTICAL);
+docRef.resizeImage(UnitValue(1024, "px"), UnitValue(600, "px"));
   
 var docWidth = docRef.width.value;  
 var docHeight = docRef.height.value;  
@@ -138,14 +140,15 @@ this.relLowerCenterY = this.layerHeight / 2;
 // add header line  
 //str = "<psd filename=\"" + docRef.name + "\" path=\"" + mySourceFilePath + "\" width=\"" + docWidth + "\" height=\"" + docHeight + "\">\n";  
 //'<?xml version="1.0" encoding="UTF-8"?>\n' // file header
-str = '<scene name="scene'+ app.activeDocument.name.match(/([^\.]+)/)[1] +'">\n';  
+str = '<scene name="'+ app.activeDocument.name.match(/([^\.]+)/)[1] +'">\n';  
 
 // now a function to collect the data  
 function exportBounds(doc, layer, i) {  
   var isVisible = layer.visible;  
   var layerData = cLayer(doc, layer);  
   
-  if(isVisible){  
+  if(isVisible){
+//DEFAULT  
 /*// Layer object main coordinates relative to its active pixels  
   var str2 = "\t<layer name=\"" + layer.name   
 + "\" stack=\"" + (i - 1) // order in which layers are stacked, starting with zero for the bottom-most layer  
@@ -155,13 +158,20 @@ function exportBounds(doc, layer, i) {
 + "\" transformpoint=\"" + "center" + "\">" // hard-coding 'center' as the default transformation point  
 + layer.name + ".png" + "</layer>\n" // I have to put some content here otherwise sometimes tags are ignored  */
 
+//XML
 var str2 = '\t<object name=\"' + layer.name.replace(" ", "-").replace(" ", "-").replace(" ", "-").toLowerCase().replace(",normal", "").replace(",decorative", "").replace(",rare", "") // object name
 + '" posX="' + lowerLeftX // object's position X axis
 + '" posY="' + lowerRightY // object's position Y axis
 + '" id="' + (i - 1) // objects id
 + '"/>\n' // structure end
 
+//JSON
+/*var str2 = '{\n\tobjects: [\n'
++ '{ name: ' */
+
 str += str2.toString();  
+
+
   };  
 };  
   
