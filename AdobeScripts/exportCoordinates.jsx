@@ -18,7 +18,7 @@ preferences.rulerUnits = Units.PIXELS;
   
 var docRef = activeDocument;  
 docRef.flipCanvas(Direction.VERTICAL);
-docRef.resizeImage(UnitValue(1024, "px"), UnitValue(600, "px"));
+docRef.resizeImage(UnitValue(1000, "px"), UnitValue(580, "px"));
   
 var docWidth = docRef.width.value;  
 var docHeight = docRef.height.value;  
@@ -158,10 +158,15 @@ function exportBounds(doc, layer, i) {
 + "\" transformpoint=\"" + "center" + "\">" // hard-coding 'center' as the default transformation point  
 + layer.name + ".png" + "</layer>\n" // I have to put some content here otherwise sometimes tags are ignored  */
 
+lowerLeftX +=13;
+upperRightY +=10;
+
 //XML
 var str2 = '\t<object name=\"' + layer.name.replace(" ", "-").replace(" ", "-").replace(" ", "-").toLowerCase().replace(",normal", "").replace(",decorative", "").replace(",rare", "") // object name
 + '" posX="' + lowerLeftX // object's position X axis
-+ '" posY="' + lowerRightY // object's position Y axis
++ '" posY="' + upperRightY // object's position Y axis
++ '" width="' + layerWidth // object's width
++ '" height="' + layerHeight // object's height
 + '" id="' + (i - 1) // objects id
 + '"/>\n' // structure end
 
