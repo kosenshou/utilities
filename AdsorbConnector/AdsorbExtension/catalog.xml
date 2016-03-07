@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding ="utf-8"?>
+<swc xmlns="http://www.adobe.com/flash/swccatalog/9">
+  <versions>
+    <swc version="1.2" />
+    <flex version="4.6.0" build="23201" minimumSupportedVersion="3.0.0" />
+  </versions>
+  <features>
+    <feature-script-deps />
+    <feature-files />
+  </features>
+  <libraries>
+    <library path="library.swf">
+      <script name="com/fgl/airconnector/AdsorbEvent" mod="1425806321699" signatureChecksum="2827014622" >
+        <def id="com.fgl.airconnector:AdsorbEvent" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.events:Event" type="i" /> 
+      </script>
+      <script name="com/fgl/airconnector/Adsorb" mod="1429342964171" signatureChecksum="1262166520" >
+        <def id="com.fgl.airconnector:Adsorb" /> 
+        <dep id="com.fgl.airconnector:AdsorbEvent" type="e" /> 
+        <dep id="flash.events:StatusEvent" type="e" /> 
+        <dep id="flash.external:ExtensionContext" type="e" /> 
+        <dep id="Error" type="e" /> 
+        <dep id="flash.events:IEventDispatcher" type="s" /> 
+        <dep id="flash.events:StatusEvent" type="s" /> 
+        <dep id="flash.external:ExtensionContext" type="s" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.events:EventDispatcher" type="i" /> 
+      </script>
+      <script name="_da779f24581fae31034e83fb633f4d7fe173db773c3a66097d556aef349551be_flash_display_Sprite" mod="1429343112608" signatureChecksum="1790212699" >
+        <def id="_da779f24581fae31034e83fb633f4d7fe173db773c3a66097d556aef349551be_flash_display_Sprite" /> 
+        <dep id="flash.system:Security" type="e" /> 
+        <dep id="AS3" type="n" /> 
+        <dep id="flash.display:Sprite" type="i" /> 
+      </script>
+      <digests>
+        <digest type="SHA-256" signed="false" value="a1e6c421e61d411f4ad64716f183b0840455c1848146df2e9f683aaa9acebc23"   />
+      </digests>
+    </library>
+  </libraries>
+  <files>
+  </files>
+</swc>

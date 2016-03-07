@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" applicationDPI="160">
+	<fx:Script>
+		<![CDATA[
+			import testadsorb.MyClass;
+			testadsorb.MyClass.initialize();
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+	</fx:Declarations>
+	<s:VGroup width="100%" height="100%" verticalAlign="middle" horizontalAlign="center" gap="40">  
+		<s:Button label="Show Interstitial" fontSize="24" click="testadsorb.MyClass.showInterstitialEventHandler(event)" styleName="next"/>
+    <s:Button label="Show Reward Video" fontSize="24" click="testadsorb.MyClass.showRewardVideoEventHandler(event)" styleName="next"/>
+    <s:Button label="Show Helper Video" fontSize="24" click="testadsorb.MyClass.showHelperVideoEventHandler(event)" styleName="next"/>
+	<s:Button label="Show Neutral Video" fontSize="24" click="testadsorb.MyClass.showNeutralVideoEventHandler(event)" styleName="next"/>
+	<s:Button label="Newsletter" fontSize="24" click="testadsorb.MyClass.showNewsletter(event)" styleName="next"/>
+	<s:Button label="More Games" fontSize="24" click="testadsorb.MyClass.showMoreGames(event)" styleName="next"/>
+	<s:Button label="Actually Free Games" fontSize="24" click="testadsorb.MyClass.showActuallyFreeGames(event)" styleName="next"/>
+	<s:Button label="Show Ad Overlay" fontSize="24" click="testadsorb.MyClass.showAdOverlay(event)" styleName="next"/>
+	<s:Button label="Hide Ad Overlay" fontSize="24" click="testadsorb.MyClass.hideAdOverlay(event)" styleName="next"/>
+	<s:Button label="Next Ad Overlay" fontSize="24" click="testadsorb.MyClass.advanceAdOverlay(event)" styleName="next"/>
+	<s:Button label="Achievement" fontSize="24" click="testadsorb.MyClass.reportAchievement(event)" styleName="next"/>
+	<s:Button label="Prompt Incentive" fontSize="24" click="testadsorb.MyClass.promptIncentive(event)" styleName="next"/>
+	<s:Button label="Check Incentive" fontSize="24" click="testadsorb.MyClass.checkIncentive(event)" styleName="next"/>
+	<s:Button label="Purchase" fontSize="24" click="testadsorb.MyClass.reportPurchase(event)" styleName="next"/>
+  </s:VGroup>
+</s:Application>

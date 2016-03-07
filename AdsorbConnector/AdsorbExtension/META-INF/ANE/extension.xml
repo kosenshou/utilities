@@ -1,0 +1,13 @@
+<extension xmlns="http://ns.adobe.com/air/extension/3.6">
+  <id>com.fgl.airconnector</id>
+  <versionNumber>1</versionNumber>
+  <platforms>
+    <platform name="Android-ARM">
+      <applicationDeployment>
+        <nativeLibrary>adsorbane.jar</nativeLibrary>
+        <initializer>com.fgl.airconnector.AdsorbAirExtension</initializer>
+        <finalizer>com.fgl.airconnector.AdsorbAirExtension</finalizer>
+      </applicationDeployment>
+    </platform>
+  </platforms>
+</extension>
