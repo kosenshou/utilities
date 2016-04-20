@@ -18,7 +18,7 @@ var oldPath = activeDocument.path;
 
 var docName = doc.name.substring(0, doc.name.indexOf('.'))
 
-var outPath = oldPath + "/Export/"+ docName +"/Objects";
+var outPath = oldPath + "/Export/"+ docName;
 var outFolder = new Folder(outPath);
 if (!outFolder.exists) {
     outFolder.create();
@@ -30,28 +30,19 @@ function scanLayerSets(el) {
     // find layer groups
     for(var a=0;a<el.layerSets.length;a++){
         var lname = el.layerSets[a].name;
-        if (lname.substr(-4) == ".png") {
             saveLayer(el.layers.getByName(lname), lname, oldPath, true);
-        } else {
-            // recursive
-            scanLayerSets(el.layerSets[a]);
-        }
     }
-    
 
-    // find plain layers in current group whose names end with .png
+    // find plain layers in current group
     for(var j=0; j<el.artLayers.length; j++) {
         var name = el.artLayers[j].name;
         
-		var objName = name.replace(",normal", "");
-		objName = objName.replace(",decorative", "");
-		objName = objName.replace(",rare", "");
-		objName = objName.toLowerCase();
+		var objName = name.toLowerCase();
 		
-        // Dont save hidden layers not working
-		if (el.layers[j].visible) {
+		//if (el.layers[j].visible) {
             saveLayer(el.layers.getByName(name), objName, oldPath, false);
-        }
+            el.layers.getByName(name).visible = false;
+         //}
         
     }
 
@@ -63,7 +54,7 @@ function saveLayer(layer, lname, path, shouldMerge) {
     if (shouldMerge === undefined || shouldMerge === true) {
         activeDocument.mergeVisibleLayers();
     }
-    activeDocument.trim(TrimType.TRANSPARENT,true,true,true,true);
+    //activeDocument.trim(TrimType.TRANSPARENT,true,true,true,true);
     var saveFile= File(outPath+"/"+lname+".png");
     SavePNG(saveFile);
     app.activeDocument.close(SaveOptions.DONOTSAVECHANGES);

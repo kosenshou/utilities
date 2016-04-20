@@ -18,11 +18,10 @@ preferences.rulerUnits = Units.PIXELS;
   
 var docRef = activeDocument;  
 docRef.flipCanvas(Direction.VERTICAL);
-docRef.resizeImage(UnitValue(1000, "px"), UnitValue(580, "px"));
+docRef.resizeImage(UnitValue(1024, "px"), UnitValue(600, "px"));
   
 var docWidth = docRef.width.value;  
 var docHeight = docRef.height.value;  
-var mySourceFilePath = activeDocument.fullName.path + "/";  
   
 // Code to get layer index / descriptor  
 //  
@@ -142,14 +141,12 @@ this.relLowerCenterY = this.layerHeight / 2;
 //'<?xml version="1.0" encoding="UTF-8"?>\n' // file header
 str = '<scene name="'+ app.activeDocument.name.match(/([^\.]+)/)[1] +'">\n';  
 
-var exportId = 0;
 // now a function to collect the data  
 function exportBounds(doc, layer, i) {  
   var isVisible = layer.visible;  
   var layerData = cLayer(doc, layer);  
   
-  
-  if(layer.name != "background" && layer.name != "foreground" && layer.name != "shadow" && layer.name != "padding"){
+  if(isVisible){
 //DEFAULT  
 /*// Layer object main coordinates relative to its active pixels  
   var str2 = "\t<layer name=\"" + layer.name   
@@ -164,12 +161,10 @@ lowerLeftX +=13;
 upperRightY +=10;
 
 //XML
-var str2 = '\t<object name=\"' + layer.name.replace(" ", "-").replace(" ", "-").replace(" ", "-").toLowerCase().replace(",normal", "").replace(",decorative", "").replace(",rare", "") // object name
+var str2 = '\t<object name=\"object' + (i-1) // object name
 + '" posX="' + lowerLeftX // object's position X axis
 + '" posY="' + upperRightY // object's position Y axis
-+ '" width="' + layerWidth // object's width
-+ '" height="' + layerHeight // object's height
-+ '" id="' + (exportId) // objects id
++ '" id="' + (i - 1) // objects id
 + '"/>\n' // structure end
 
 //JSON
@@ -178,8 +173,6 @@ var str2 = '\t<object name=\"' + layer.name.replace(" ", "-").replace(" ", "-").
 
 str += str2.toString();  
 
-exportId ++;
-
 
   };  
 };  
@@ -187,27 +180,13 @@ exportId ++;
   
 // call X's function using the one above  
 traverseLayers(app.activeDocument, exportBounds, true);  
-
-var doc = activeDocument;
-var oldPath = activeDocument.path;
-
-var docName = doc.name.substring(0, doc.name.indexOf('.'))
-
-var outPath = oldPath + "/Export/"+ docName;
-var outFolder = new Folder(outPath);
-if (!outFolder.exists) {
-    outFolder.create();
-}
   
 // Use this to export XML file to same directory where PSD file is located  
-  var mySourceFilePath = activeDocument.fullName.path + "/";  
 // create a reference to a file for output  
-  var csvFile = new File(outPath + "/" + docName +".xml");  
+  var csvFile = new File("d:/Game Assets/xycoord.xml");  
 // open the file, write the data, then close the file  
 csvFile.open('w');  
 csvFile.writeln(str + "</scene>");  
 csvFile.close();  
 preferences.rulerUnits = originalRulerUnits;  
 // Confirm that operation has completed  
-//alert("Operation Complete!" + "\n" + "Layer coordinates were successfully exported to:" + "\n" + "\n" + mySourceFilePath.toString().match(/([^\.]+)/)[1] + app.activeDocument.name.match(/([^\.]+)/)[1] + ".xml");
-app.activeDocument.close(SaveOptions.DONOTSAVECHANGES);
