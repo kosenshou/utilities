@@ -18,7 +18,7 @@ preferences.rulerUnits = Units.PIXELS;
   
 var docRef = activeDocument;  
 docRef.flipCanvas(Direction.VERTICAL);
-docRef.resizeImage(UnitValue(1024, "px"), UnitValue(512, "px"));
+docRef.resizeImage(UnitValue(600, "px"), UnitValue(824, "px"));
   
 var docWidth = docRef.width.value;  
 var docHeight = docRef.height.value;  
@@ -149,7 +149,7 @@ function exportBounds(doc, layer, i) {
   var layerData = cLayer(doc, layer);  
   
   
-  if(layer.name != "background" && layer.name != "foreground" && layer.name != "shadow" && layer.name != "padding"){
+  if(layer.name != "background,background" && layer.name != "foreground,background"){
 //DEFAULT  
 /*// Layer object main coordinates relative to its active pixels  
   var str2 = "\t<layer name=\"" + layer.name   
@@ -160,11 +160,11 @@ function exportBounds(doc, layer, i) {
 + "\" transformpoint=\"" + "center" + "\">" // hard-coding 'center' as the default transformation point  
 + layer.name + ".png" + "</layer>\n" // I have to put some content here otherwise sometimes tags are ignored  */
 
-//lowerLeftX +=13;
-//upperRightY +=10;
+lowerLeftX +=13;
+upperRightY +=10;
 
 //XML
-var str2 = '\t<object name=\"object' + (exportId)// object name
+var str2 = '\t<object name=\"' + layer.name.replace(" ", "-").replace(" ", "-").replace(" ", "-").toLowerCase().replace(",normal", "").replace(",decorative", "").replace(",rare", "") // object name
 + '" posX="' + lowerLeftX // object's position X axis
 + '" posY="' + upperRightY // object's position Y axis
 + '" width="' + layerWidth // object's width
@@ -193,7 +193,7 @@ var oldPath = activeDocument.path;
 
 var docName = doc.name.substring(0, doc.name.indexOf('.'))
 
-var outPath = oldPath + "/Export/";
+var outPath = oldPath + "/Export/Data";
 var outFolder = new Folder(outPath);
 if (!outFolder.exists) {
     outFolder.create();

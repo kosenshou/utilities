@@ -1,27 +1,26 @@
-﻿#target photoshop
-// $.level = 2;
-
-/*
- *  Script by Tomek Cejner (tomek (at) japko dot info)
- *  based on work of Damien van Holten:
- *  http://www.damienvanholten.com/blog/export-groups-to-files-photoshop/
- *
- *  My version adds support of nested layer groups, 
- *  and exports single layers in addition to groups. 
- *
- */
-
-function main(){
+﻿function main(){
 if(!documents.length) return;
 var doc = activeDocument;
 var oldPath = activeDocument.path;
 
 var docName = doc.name.substring(0, doc.name.indexOf('.'))
 
-var outPath = oldPath + "/Export/"+ docName;
+/*var outPath = oldPath + "/Export/"+ docName;
 var outFolder = new Folder(outPath);
 if (!outFolder.exists) {
     outFolder.create();
+}*/
+
+var bgPath = oldPath + "/Export/Background";
+var bgFolder = new Folder(bgPath);
+if (!bgFolder.exists) {
+    bgFolder.create();
+}
+
+var fgPath = oldPath + "/Export/Foreground";
+var fgFolder = new Folder(fgPath);
+if (!fgFolder.exists) {
+    fgFolder.create();
 }
 
 scanLayerSets(doc);
@@ -42,10 +41,10 @@ function scanLayerSets(el) {
 		objName = objName.replace(",rare", "");
 		objName = objName.toLowerCase();
 		
-		//if (el.layers[j].visible) {
+		if (objName == "background" || objName == "foreground") {
             saveLayer(el.layers.getByName(name), objName, oldPath, false);
             el.layers.getByName(name).visible = false;
-         //}
+         }
         
     }
 
@@ -58,14 +57,22 @@ function saveLayer(layer, lname, path, shouldMerge) {
         activeDocument.mergeVisibleLayers();
     }
     //activeDocument.trim(TrimType.TRANSPARENT,true,true,true,true);
-    var saveFile= File(outPath+"/"+lname+".png");
-    SavePNG(saveFile);
+    
+    if (lname == "foreground") {
+        var saveFile= File(fgPath+"/"+docName+".png");
+        SavePNG(saveFile);
+    } else if (lname == "background") {
+        var saveFile= File(bgPath+"/"+docName+".jpg");
+        SaveJPEG(saveFile);
+    }
+    
     app.activeDocument.close(SaveOptions.DONOTSAVECHANGES);
 }
 
 };
 
 main();
+activeDocument.close(SaveOptions.DONOTSAVECHANGES);
 
 function dupLayers() { 
     var desc143 = new ActionDescriptor();
@@ -88,3 +95,12 @@ function SavePNG(saveFile){
     pngOpts.quality = 100;
     activeDocument.exportDocument(new File(saveFile),ExportType.SAVEFORWEB,pngOpts); 
 }
+
+function SaveJPEG(saveFile) {  
+     var saveOptions = new JPEGSaveOptions( );  
+     saveOptions.embedColorProfile = true;  
+     saveOptions.formatOptions = FormatOptions.OPTIMIZEDBASELINE;  
+     saveOptions.matte = MatteType.NONE;  
+     saveOptions.quality = 10;   
+     activeDocument.saveAs( saveFile, saveOptions, true );  
+}  

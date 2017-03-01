@@ -1,4 +1,4 @@
-//  
+﻿//  
 // This script exports extended layer.bounds information to [psd_file_name].xml  
 // by pattesdours  
 //  
@@ -172,4 +172,4 @@ csvFile.writeln(str + "</psd>");
 csvFile.close();  
 preferences.rulerUnits = originalRulerUnits;  
 // Confirm that operation has completed  
-alert("Operation Complete!" + "\n" + "Layer coordinates were successfully exported to:" + "\n" + "\n" + mySourceFilePath.toString().match(/([^\.]+)/)[1] + app.activeDocument.name.match(/([^\.]+)/)[1] + ".xml");
+//alert("Operation Complete!" + "\n" + "Layer coordinates were successfully exported to:" + "\n" + "\n" + mySourceFilePath.toString().match(/([^\.]+)/)[1] + app.activeDocument.name.match(/([^\.]+)/)[1] + ".xml");

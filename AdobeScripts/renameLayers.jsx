@@ -17,7 +17,7 @@ var originalRulerUnits = preferences.rulerUnits;
 preferences.rulerUnits = Units.PIXELS;  
   
 var docRef = activeDocument;  
-docRef.flipCanvas(Direction.VERTICAL);
+//docRef.flipCanvas(Direction.VERTICAL);
 //docRef.resizeImage(UnitValue(1000, "px"), UnitValue(580, "px"));
   
 var docWidth = docRef.width.value;  
