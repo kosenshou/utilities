@@ -18,7 +18,7 @@ preferences.rulerUnits = Units.PIXELS;
   
 var docRef = activeDocument;  
 docRef.flipCanvas(Direction.VERTICAL);
-docRef.resizeImage(UnitValue(600, "px"), UnitValue(824, "px"));
+docRef.resizeImage(UnitValue(1024, "px"), UnitValue(600, "px"));
   
 var docWidth = docRef.width.value;  
 var docHeight = docRef.height.value;  
@@ -149,7 +149,7 @@ function exportBounds(doc, layer, i) {
   var layerData = cLayer(doc, layer);  
   
   
-  if(layer.name.search(",background") == -1 && layer.visible){
+  if(layer.name != "background" && layer.name != "foreground" && layer.name != "shadow" && layer.name != "padding"){
 //DEFAULT  
 /*// Layer object main coordinates relative to its active pixels  
   var str2 = "\t<layer name=\"" + layer.name   
@@ -193,7 +193,7 @@ var oldPath = activeDocument.path;
 
 var docName = doc.name.substring(0, doc.name.indexOf('.'))
 
-var outPath = oldPath + "/Export/Data";
+var outPath = oldPath + "/Export/"+ docName;
 var outFolder = new Folder(outPath);
 if (!outFolder.exists) {
     outFolder.create();
@@ -202,7 +202,7 @@ if (!outFolder.exists) {
 // Use this to export XML file to same directory where PSD file is located  
   var mySourceFilePath = activeDocument.fullName.path + "/";  
 // create a reference to a file for output  
-  var csvFile = new File(outPath + "/" + docName +".xml");  
+  var csvFile = new File(outPath + "/Mapping/.xml");  
 // open the file, write the data, then close the file  
 csvFile.open('w');  
 csvFile.writeln(str + "</scene>");  

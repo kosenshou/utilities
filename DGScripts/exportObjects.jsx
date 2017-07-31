@@ -49,11 +49,12 @@ function scanLayerSets(el) {
 		objName = objName.toLowerCase();
 		
         // Dont save hidden layers not working
-		if (el.layers[j].visible && objName != "background,background" && objName != "foreground,background") {
+
+		if (el.layers[j].visible && objName.search(",background") == -1) {
             positionLayer(el.layers.getByName(name), 600, 824);
             saveLayer(el.layers.getByName(name), objName, oldPath, false);
         }
-        
+ 
     }
 
 }
